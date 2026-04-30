@@ -128,18 +128,22 @@ h1 {
 .hero-photo-wrap {
   display: flex;
   justify-content: center;
+  width: 100%;
+  max-width: 280px;
 }
 
 .hero-photo {
-  width: 260px;
-  height: 260px;
+  display: block;
+  width: min(260px, 100%);
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  height: auto;
   object-fit: cover;
   border-radius: 28px;
   border: 1px solid var(--line);
   box-shadow: 0 20px 55px rgba(40, 56, 77, 0.16);
   background: var(--card);
 }
-
 .section {
   max-width: 1120px;
   margin: 0 auto;
@@ -234,14 +238,14 @@ h1 {
     grid-template-columns: 1fr;
   }
 
-  .hero-photo-wrap {
-    justify-content: flex-start;
-  }
+.hero-photo-wrap {
+  justify-content: flex-start;
+  max-width: 220px;
+}
 
-  .hero-photo {
-    width: 210px;
-    height: 210px;
-  }
+.hero-photo {
+  width: min(210px, 100%);
+}
 
   .section {
     grid-template-columns: 1fr;
