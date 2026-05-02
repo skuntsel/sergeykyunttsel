@@ -218,6 +218,27 @@ h1 {
   border-top: 1px solid var(--line);
 }
 
+.profile-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.profile-links a {
+  display: inline-block;
+}
+
+.stack-flair {
+  margin-top: 1rem;
+}
+
+.stack-flair img {
+  max-width: 208px;
+  height: auto;
+  border: 0;
+}
+
 @media (max-width: 820px) {
   .nav {
     align-items: flex-start;
