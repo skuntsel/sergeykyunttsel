@@ -242,6 +242,27 @@ h1 {
   border: 0;
 }
 
+.contact-actions {
+  margin: 1.25rem 0 1rem;
+}
+
+.contact-cta {
+  display: inline-block;
+  padding: 0.85rem 1.25rem;
+  border: 1px solid #cfc6b8;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.2;
+  color: #22344d;
+  background: #fff;
+}
+
+.contact-note {
+  margin-top: 1rem;
+}
+
 @media (max-width: 820px) {
   .nav {
     align-items: flex-start;
@@ -278,5 +299,12 @@ h1 {
 
   .section-body {
     padding: 24px;
+  }
+
+  .contact-cta {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.9rem 1rem;
   }
 }
