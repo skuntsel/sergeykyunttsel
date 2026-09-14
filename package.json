@@ -9,9 +9,9 @@
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
-    "astro": "latest"
+    "astro": "7.3.2"
   },
   "devDependencies": {
-    "wrangler": "latest"
+    "wrangler": "4.131.1"
   }
 }
