@@ -7,3 +7,5 @@ Personal site for Sergey Kyunttsel.
 The `astro-migration` branch contains the in-progress Astro/Cloudflare migration. The `main` branch remains the current production source until the migration is validated and cut over.
 
 Cloudflare Builds is configured to use `astro-migration` as the production branch during the migration test.
+
+Git integration reconnection trigger.
