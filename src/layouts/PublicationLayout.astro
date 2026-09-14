@@ -1,0 +1,54 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import '../styles/writing.css';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  publication: CollectionEntry<'publications'>;
+}
+
+const { publication } = Astro.props;
+const { data } = publication;
+const canonical = `https://sergeykyunttsel.com/writing/${publication.id}/`;
+const published = data.datePublished.toLocaleDateString('en-US', {
+  year: 'numeric', month: 'long', day: 'numeric'
+});
+const updated = data.dateUpdated?.toLocaleDateString('en-US', {
+  year: 'numeric', month: 'long', day: 'numeric'
+});
+---
+
+<BaseLayout
+  title={`${data.title} | Sergey Kyunttsel`}
+  description={data.deck}
+  canonical={canonical}
+  ogType="article"
+>
+  <SiteHeader />
+
+  <main class="writing-shell">
+    <div class="writing-back"><a href="/writing/">← Writing</a></div>
+
+    <article class="publication-article">
+      <header class="publication-article-header">
+        <p class="publication-kicker">{data.area}</p>
+        <h1>{data.title}</h1>
+        <p class="publication-deck">{data.deck}</p>
+        <div class="publication-byline">
+          <span>Sergey Kyunttsel</span>
+          <span aria-hidden="true">·</span>
+          <time datetime={data.datePublished.toISOString()}>{published}</time>
+          {updated && <><span aria-hidden="true">·</span><span>Updated {updated}</span></>}
+        </div>
+      </header>
+
+      <div class="publication-body">
+        <slot />
+      </div>
+    </article>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>

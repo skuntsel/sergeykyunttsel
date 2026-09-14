@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import PublicationCard from '../../components/PublicationCard.astro';
+import '../../styles/writing.css';
+import { getCollection } from 'astro:content';
+
+const areaOrder = [
+  'Financial Planning',
+  'Capital Allocation',
+  'Corporate Finance',
+  'Energy Efficiency',
+  'Electricity & Energy Markets'
+] as const;
+
+const publications = (await getCollection('publications', ({ data }) => data.status === 'published'))
+  .sort((a, b) => b.data.datePublished.getTime() - a.data.datePublished.getTime());
+---
+
+<BaseLayout
+  title="Writing | Sergey Kyunttsel"
+  description="Original analysis and selected external publications by Sergey Kyunttsel across financial planning, capital allocation, corporate finance, energy efficiency, and electricity and energy markets."
+  canonical="https://sergeykyunttsel.com/writing/"
+>
+  <SiteHeader />
+
+  <main class="writing-shell">
+    <header class="writing-intro">
+      <p class="publication-kicker">Writing</p>
+      <h1>Publications and original analysis.</h1>
+      <p>
+        A registry of Sergey Kyunttsel's original writing and selected work published elsewhere.
+        External publications link to the original source; original pieces are published here.
+      </p>
+    </header>
+
+    {areaOrder.map((area) => {
+      const items = publications.filter((publication) => publication.data.area === area);
+      if (items.length === 0) return null;
+
+      return (
+        <section class="publication-area">
+          <h2>{area}</h2>
+          <div class="publication-list">
+            {items.map((publication) => <PublicationCard publication={publication} />)}
+          </div>
+        </section>
+      );
+    })}
+  </main>
+
+  <SiteFooter />
+</BaseLayout>

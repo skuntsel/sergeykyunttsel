@@ -1,0 +1,23 @@
+---
+import { getCollection, render } from 'astro:content';
+import PublicationLayout from '../../layouts/PublicationLayout.astro';
+
+export async function getStaticPaths() {
+  const publications = await getCollection(
+    'publications',
+    ({ data }) => data.type === 'original' && data.status === 'published'
+  );
+
+  return publications.map((publication) => ({
+    params: { id: publication.id },
+    props: { publication }
+  }));
+}
+
+const { publication } = Astro.props;
+const { Content } = await render(publication);
+---
+
+<PublicationLayout publication={publication}>
+  <Content />
+</PublicationLayout>
