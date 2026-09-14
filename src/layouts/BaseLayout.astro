@@ -1,0 +1,70 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogType?: string;
+}
+
+const {
+  title = 'Sergey Kyunttsel, PhD | Corporate Finance, Financial Planning and Independent Research',
+  description = 'Sergey Kyunttsel, PhD: corporate finance, FP&A, capital allocation, financial modeling, investment analysis, financial planning, private wealth, business ownership, and independent research in lifecycle economics and realized value.',
+  canonical = 'https://sergeykyunttsel.com/',
+  ogType = 'website'
+} = Astro.props;
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  url: 'https://sergeykyunttsel.com/',
+  name: 'Sergey Kyunttsel'
+};
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Sergey Kyunttsel',
+  honorificSuffix: 'PhD',
+  url: 'https://sergeykyunttsel.com/',
+  sameAs: [
+    'https://selra.org/',
+    'https://orcid.org/0009-0005-0190-5826',
+    'https://scholar.google.com/citations?user=2Abz9i0AAAAJ',
+    'https://github.com/skuntsel',
+    'https://stackoverflow.com/users/1820286/sergey-kyunttsel',
+    'https://www.linkedin.com/in/sergeykyunttsel'
+  ]
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#28384d" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Sergey Kyunttsel" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

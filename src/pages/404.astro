@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+<BaseLayout
+  title="Page Not Found | Sergey Kyunttsel"
+  description="The requested page could not be found."
+  canonical="https://sergeykyunttsel.com/404/">
+  <SiteHeader />
+  <main id="top">
+    <section class="hero">
+      <div class="hero-text-block">
+        <p class="eyebrow">404</p>
+        <h1>Page not found.</h1>
+        <p class="hero-text">The page you requested does not exist or has moved. <a href="/">Return to the home page.</a></p>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
