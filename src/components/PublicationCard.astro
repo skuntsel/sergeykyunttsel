@@ -7,15 +7,15 @@ interface Props {
 
 const { publication } = Astro.props;
 const { data } = publication;
-const href = data.type === 'external'
-  ? (data.externalUrl ?? '#')
-  : `/writing/${publication.id}/`;
 const isExternal = data.type === 'external';
-const formattedDate = data.datePublished.toLocaleDateString('en-US', {
+const href = isExternal ? data.externalUrl : `/writing/${publication.id}/`;
+const hasLink = Boolean(href) && data.status !== 'forthcoming';
+const formattedDate = data.datePublished?.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric'
 });
+const statusLabel = data.status === 'forthcoming' ? 'Forthcoming' : formattedDate;
 ---
 
 <article class="publication-card">
@@ -23,14 +23,19 @@ const formattedDate = data.datePublished.toLocaleDateString('en-US', {
     <span>{data.area}</span>
     <span aria-hidden="true">·</span>
     <span>{data.venue ?? (isExternal ? 'Published elsewhere' : 'Sergey Kyunttsel')}</span>
-    <span aria-hidden="true">·</span>
-    <time datetime={data.datePublished.toISOString()}>{formattedDate}</time>
+    {statusLabel && <><span aria-hidden="true">·</span><span>{statusLabel}</span></>}
   </div>
 
-  <h2><a href={href} target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener noreferrer' : undefined}>{data.title}</a></h2>
+  <h2>
+    {hasLink ? (
+      <a href={href} target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener noreferrer' : undefined}>{data.title}</a>
+    ) : data.title}
+  </h2>
   <p>{data.deck}</p>
 
-  <a class="publication-link" href={href} target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener noreferrer' : undefined}>
-    {isExternal ? 'Read at original source ↗' : 'Read article →'}
-  </a>
+  {hasLink && (
+    <a class="publication-link" href={href} target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener noreferrer' : undefined}>
+      {isExternal ? 'Read at original source ↗' : 'Read article →'}
+    </a>
+  )}
 </article>

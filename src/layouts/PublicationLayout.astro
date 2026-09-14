@@ -12,7 +12,7 @@ interface Props {
 const { publication } = Astro.props;
 const { data } = publication;
 const canonical = `https://sergeykyunttsel.com/writing/${publication.id}/`;
-const published = data.datePublished.toLocaleDateString('en-US', {
+const published = data.datePublished?.toLocaleDateString('en-US', {
   year: 'numeric', month: 'long', day: 'numeric'
 });
 const updated = data.dateUpdated?.toLocaleDateString('en-US', {
@@ -38,8 +38,7 @@ const updated = data.dateUpdated?.toLocaleDateString('en-US', {
         <p class="publication-deck">{data.deck}</p>
         <div class="publication-byline">
           <span>Sergey Kyunttsel</span>
-          <span aria-hidden="true">·</span>
-          <time datetime={data.datePublished.toISOString()}>{published}</time>
+          {data.datePublished && published && <><span aria-hidden="true">·</span><time datetime={data.datePublished.toISOString()}>{published}</time></>}
           {updated && <><span aria-hidden="true">·</span><span>Updated {updated}</span></>}
         </div>
       </header>

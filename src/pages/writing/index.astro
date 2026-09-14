@@ -14,8 +14,17 @@ const areaOrder = [
   'Electricity & Energy Markets'
 ] as const;
 
-const publications = (await getCollection('publications', ({ data }) => data.status === 'published'))
-  .sort((a, b) => b.data.datePublished.getTime() - a.data.datePublished.getTime());
+const publications = (await getCollection('publications', ({ data }) => data.status !== 'draft'))
+  .sort((a, b) => {
+    if (a.data.status !== b.data.status) {
+      return a.data.status === 'published' ? -1 : 1;
+    }
+
+    const aDate = a.data.datePublished?.getTime() ?? 0;
+    const bDate = b.data.datePublished?.getTime() ?? 0;
+    if (aDate !== bDate) return bDate - aDate;
+    return a.data.title.localeCompare(b.data.title);
+  });
 ---
 
 <BaseLayout

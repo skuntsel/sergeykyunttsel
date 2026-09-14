@@ -18,11 +18,11 @@ const publications = defineCollection({
       'Electricity & Energy Markets'
     ]),
     type: z.enum(['original', 'external']),
-    datePublished: z.coerce.date(),
+    datePublished: z.coerce.date().optional(),
     dateUpdated: z.coerce.date().optional(),
     venue: z.string().optional(),
     externalUrl: z.string().url().optional(),
-    status: z.enum(['published', 'draft']).default('published')
+    status: z.enum(['published', 'forthcoming', 'draft']).default('published')
   })
 });
 
